@@ -129,8 +129,8 @@ function main(n=4)
         # then-optimize
         ###################################################
        
-        revenue_wc = EvaluateAssortment(assortment_est,r,revenue_ordered_assortments,v,n,Σ_all,gurobi_env,false)
-        revenue_bc = EvaluateAssortment(assortment_est,r,revenue_ordered_assortments,v,n,Σ_all,gurobi_env,true)
+        revenue_wc,_ = EvaluateAssortment(assortment_est,r,revenue_ordered_assortments,v,n,Σ_all,gurobi_env,false)
+        revenue_bc,_ = EvaluateAssortment(assortment_est,r,revenue_ordered_assortments,v,n,Σ_all,gurobi_env,true)
         println(revenue_est, ", ", assortment_est,", ", revenue_wc,", ", max_expected_revenue_past_assortment)
 
 

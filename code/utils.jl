@@ -189,7 +189,9 @@ function EvaluateAssortment(S_new,r,past_assortments,v,n,Σ,gurobi_env,best_case
 
     # Solve
     optimize!(model)
-    return objective_value(model)
+
+    # Return the optimal objective value and optimal λ
+    return objective_value(model), value.(λ)
 end
 
 
