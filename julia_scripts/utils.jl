@@ -96,7 +96,7 @@ function EstimateDistribution(past_assortments,v,Σ,gurobi_env)
 
     # Initialize the linear optimization problem for estimating
     # the ranking-based choice model
-    model = Model(with_optimizer(Gurobi.Optimizer,gurobi_env))
+    model = direct_model(Gurobi.Optimizer(gurobi_env))::JuMP.Model
     set_silent(model)
     
     # Decision variables
@@ -124,7 +124,7 @@ end
 
 function GetOptimalAssortment(λ,n,r,Σ,gurobi_env)
     K = length(Σ)
-    model = Model(with_optimizer(Gurobi.Optimizer,gurobi_env))
+    model = direct_model(Gurobi.Optimizer(gurobi_env))::JuMP.Model
     set_silent(model)
     @variable(model, x[1:n], Bin)
     @variable(model, y[k=1:K,i=0:n] ≥ 0)
@@ -163,7 +163,7 @@ function EvaluateAssortment(S_new,r,past_assortments,v,n,Σ,gurobi_env,best_case
     A = Construct_A(past_assortments, Σ)   
    
     # Initialize the model
-    model = Model(with_optimizer(Gurobi.Optimizer,gurobi_env))
+    model = direct_model(Gurobi.Optimizer(gurobi_env))::JuMP.Model
     set_silent(model)
 
     # Get the revenue for the new assortment under each preference list
@@ -203,6 +203,7 @@ end
 function GetRandomDistribution(n,sparse=100)
 
     # Generate a probability distribution by sampling uniformly over the probability simplex
+    sparse = min(sparse, factorial(BigInt(n+1)))
     U = -1*log.(rand(sparse))
     U_sum = sum(U)
     λ_true = U ./ U_sum

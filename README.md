@@ -2,7 +2,7 @@
 
 This repository contains the code used in the numerical experiments in the paper:
 
-	B. Sturt (2021). The Value of Robust Assortment Optimization Under Ranking-based Choice Models.
+	B. Sturt (2024). The Value of Robust Assortment Optimization Under Ranking-based Choice Models. Management Science
 
 
 ## Citation
@@ -10,31 +10,45 @@ This repository contains the code used in the numerical experiments in the paper
 If you use the code in this repository in your own research, please cite the above paper as follows:
 
 ```
-@article{sturt2021identification,
+@article{sturt2024identification,
 	title={The Value of Robust Assortment Optimization Under Ranking-based Choice Models},
 	author={Sturt, Bradley},
-	year={2021},
+	year={2024},
+    journal={Management Science}
 }
 ```
 
+The processed data files in `conjoint_data/` came from the `optimalPLD_data/toubia2003_neq3584_Keq330_v2/` directory of the following paper:
+
+> D. Bertsimas and V. V. Mišić (2019). Exact first-choice product line optimization. *Operations Research*, 67(3) : 651-670.  Available at SSRN: https://ssrn.com/abstract=3020502. 
+
+Please see the Github page of that paper (https://github.com/vvmisic/optimalPLD/blob/master/README.md?plain=1) for proper citations of the conjoint dataset. 
 
 ## Organization
 
 This repository is organized into the following directories: 
 
-* `julia_scripts/` Contains the scripts for performing the numerical experiments from Sections 4.1 and 4.2. The output of executing the scripts is saved in the data directory. 
-	* `revenue_ordered_assortments.jl` Performs all of the numerical experiments with revenue-ordered assortments in Section 4.1. After loading the script into the Julia terminal, the code is executed using the main function. 
-	* `two_assortments.jl` Performs the first set of numerical experiments with two assortments from Section 4.2. Specifically, this file generates the data for Figure 5. After loading the script into the Julia terminal, the code is executed using the main function. 
-	* `two_assortments_speed_test.jl` Performs the second set of numerical experiments with two assortments from Section 4.2. Specifically, this file generates the data for Figure 6. After loading the script into the Julia terminal, the code is executed using the main function. 
-	* `two_assortments_appendix.jl` Performs the analysis of the specific problem instance from Appendix E. After loading the script into the Julia terminal, the code is executed using the main function. 
-	* `utils.jl` Contains helper functions for the other scripts. 
-*  `data/` Contains the output of the experiment scripts. 
-	*  `revenue_ordered_assortments_n_equal_4.csv` The output of the revenue_ordered_assortments.jl script.
-	*  `two_assortments_n_10_K_10.csv` The output of the two_assortments.jl script. 
-	*  `two_assortments_speed.csv` The output of the two_assortments_speed_test.jl script.
-* `r_scripts/` Contains the scripts for generating the figures from Sections 4.1 and 4.2.
-	* `section_41.R` Contains the code for generating Figures 2 and 3. 
-	* `section_42.R` Contains the code for generating Figures 5 and 6.
+* `julia_scripts/` Contains the scripts for performing the numerical experiments. The output of executing the scripts is saved in the data directory. After loading the script into the Julia terminal, the code is executed using the main function.
+    * `section_3.jl` Performs the numerical experiments for answering question 1 in Section 3. 
+	* `appendix_A1.jl` Performs the numerical experiments associated with Figures EC.1 and EC.2 in Appendix A.1.  
+	* `appendix_A2_1.jl` Performs the numerical experiments associated with Figure EC.3 from Appendix A.2. 
+	* `appendix_A2_2.jl` Performs the numerical experiments associated with Figure EC.4 from Appendix A.2. 
+	* `appendix_A3.jl` Performs the numerical experiments associated with Figure EC.5 from Appendix A.3. 
+	* `appendix_A4.jl` Performs the numerical experiments associated with Figure EC.6 from Appendix A.4. 
+	* `appendix_A5.jl` Performs the numerical experiments associated with Figure EC.7 from Appendix A.5. 
+	* `appendix_A6.jl` Performs the numerical experiments associated with Figure EC.8 from Appendix A.6. 
+	* `utils.jl`, `general_utils.jl`, `nested_utils.jl` Contains helper functions for solving the robust and optimistic optimization problems. 
+	* `construct_L.jl`, `construct_S_hat.jl`, `construct_rho.jl` Contains helper functions for solving the robust and optimistic optimization problems in the case of general collection of past assortments
+* `data/` Contains the output of the Julia scripts 
+* `conjoint_data/` Contains the processed conjoint data files used in Appendix A.6
+* `r_scripts/` Contains the scripts for generating the figures from Appendix A
+	* `appendix_A1.R` Generates Figures EC.1 and EC.2 in Appendix A.1.  
+	* `appendix_A2.R` Generates Figures EC.3 and EC.4 from Appendix A.2. 
+	* `appendix_A3.R` Generates Figure EC.5 from Appendix A.3. 
+	* `appendix_A4.R` Generates Figure EC.6 from Appendix A.4. 
+	* `appendix_A5.R` Generates Figure EC.7 from Appendix A.5. 
+	* `appendix_A6.R` Generates Figure EC.8 from Appendix A.6. 
+
 * `figures/` Contains the figures that are generated by the R scripts. 
 
 ## Requirements
