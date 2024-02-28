@@ -7,6 +7,8 @@ using Random
 using TickTock
 using TimerOutputs
 
+include("nested_utils.jl")
+include("utils.jl")
 
 
 
@@ -22,7 +24,7 @@ function main()
     sales = 0
     
     # Create the output file
-    f_out = open("../data/best_case_nested_R2.csv", "w")
+    f_out = open("../data/appendix_A4.csv", "w")
 
     # Add the headers to the output file
     row_string = string("iter", ",",                      # Iteration that was run

@@ -20,7 +20,7 @@ function main(n=4)
     gurobi_env = Gurobi.Env()
     
     # Create the output file
-    f_out = open("../data/revenue_ordered_assortments_n_equal_4.csv", "w")
+    f_out = open("../data/appendix_A1.csv", "w")
     
     # Add the headers to the output file
     row_string = string("iter", ",",                      # Iteration that was run

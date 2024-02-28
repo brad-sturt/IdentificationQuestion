@@ -16,7 +16,7 @@ library(ggfittext)
 # Figure EC.3 in Appendix A.2
 ################################################
 
-data = read.csv("../data/two_assortments_n_10_K_10.csv")
+data = read.csv("../data/appendix_A2_1.csv")
 figure = ggplot(data, aes(x=max_previous_assortments,y=worst_case_revenue)) + 
   geom_point() +
   theme_bw(base_size = 16, base_family = "Helvetica") + 
@@ -32,7 +32,7 @@ dev.off()
 # Figure EC.4 in Appendix A.2
 ################################################
 
-data_speed = read.csv("../data/two_assortments_speed.csv")
+data_speed = read.csv("../data/appendix_A2_2.csv")
 plot_speed = ggplot(data_speed %>% group_by(n) %>% summarize(running_time = mean(speed), running_time_sd = sd(speed))) +
   geom_line(aes(x=n,y=running_time)) + 
   geom_point(aes(x=n,y=running_time)) + 

@@ -11,8 +11,7 @@ library(ggfittext)
 # set to `IdentificationQuestion/r_script`
 ##################################################
 
-# Load in the data for Section 4.1
-data = read.csv("../data/revenue_ordered_assortments_n_equal_4.csv")
+data = read.csv("../data/appendix_A1.csv")
 
 # As a sanity check, confirm for each problem instance that the worst-case 
 # expected revenue of the assortment found by estimate-then-optimize is never
@@ -20,8 +19,8 @@ data = read.csv("../data/revenue_ordered_assortments_n_equal_4.csv")
 data %>% 
   count(worst_case_revenue > max_previous_assortments + 1e-10)
 
-# Create Figure 2
-figure_2 = ggplot(data, aes(x=max_previous_assortments,y=worst_case_revenue)) + 
+# Create figure
+figure = ggplot(data, aes(x=max_previous_assortments,y=worst_case_revenue)) + 
   geom_point() +
   theme_bw(base_size = 16, base_family = "Helvetica") + 
   theme(legend.position="none") +
@@ -30,7 +29,7 @@ figure_2 = ggplot(data, aes(x=max_previous_assortments,y=worst_case_revenue)) +
 
 png(file="../figures/revenue_ordered_assortment_prev.png",
     width = 8, height = 6, units = 'in', res = 300)
-grid.arrange(figure_2)
+grid.arrange(figure)
 dev.off()
 
 # Obtain the subset of problem instances for which the worst-case expected
@@ -59,7 +58,7 @@ nrow(data_worse)
 # Calculate summary statistics for data_worse
 data_worse %>% summarize(mean(past_to_best),mean(past_to_worst))
 
-# Create Figure 3
+# Create figure
 plot_intervals = ggplot(data_worse %>% arrange(-past_to_worst) %>%
                           mutate(row = seq.int(nrow(data_worse)))) +
   geom_col(aes(x=row,y=past_to_best),fill='blue') + 

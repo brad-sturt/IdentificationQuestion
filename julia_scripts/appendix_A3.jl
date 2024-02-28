@@ -241,7 +241,7 @@ function main()
     sales = 0
     
     # Create the output file
-    f_out = open("../data/nested_R1_speed.csv", "w")
+    f_out = open("../data/appendix_A3.csv", "w")
 
     # Add the headers to the output file
     row_string = string("iter", ",",  # Iteration that was run

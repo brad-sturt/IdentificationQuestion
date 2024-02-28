@@ -27,7 +27,7 @@ function main()
     Random.seed!(3)
 
     # Create the output file
-    f_out = open("../data/conjoint_R2.csv", "w")
+    f_out = open("../data/appendix_A6.csv", "w")
 
     # Add the headers to the output file
     row_string = string("iter", ",",                      # Iteration
@@ -238,7 +238,5 @@ function main()
         end
     end
 end      
-main()
-println("") 
 
 

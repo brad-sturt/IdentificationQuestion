@@ -19,7 +19,7 @@ reverselog_trans <- function(base = exp(1)) {
 # Figure EC.5 in Appendix A.3
 ################################################
 
-data_speed = read.csv("../data/nested_R1_speed.csv")
+data_speed = read.csv("../data/appendix_A3.csv")
 plot_speed = 
   ggplot(data_speed %>% group_by(n,M) %>% summarize(running_time = mean(speed), running_time_sd = sd(speed))) +
   geom_line(aes(x=M,y=running_time)) + 

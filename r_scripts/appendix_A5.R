@@ -15,7 +15,9 @@ reverselog_trans <- function(base = exp(1)) {
             domain = c(1e-100, Inf))
 }
 
-data = read.csv("../data/nested_R1_reverse_revenue_ordered_3.csv") 
+data = read.csv("../data/appendix_A5.csv") 
+
+
 data = data %>%
   mutate(improvement_over_best_past_assortment_best_case = best_case_revenue / max_previous_assortment,
          improvement_over_best_past_assortment_worst_case = worst_case_revenue / max_previous_assortment,
@@ -30,7 +32,7 @@ figure_reverse_rev_order = data %>%
   distinct(iter, rev_ordered, n, past_to_best, past_to_worst) %>%
   group_by(iter, rev_ordered, n) %>%
   mutate(row = rank(past_to_worst)) %>%
-  filter(rev_ordered == "false") %>%
+  filter(rev_ordered == "reverse_rev_ordered") %>%
   filter(past_to_best > 0.001) %>%
   ggplot() +
   geom_col(aes(x=row,y=past_to_best),fill='blue') + 
@@ -60,7 +62,7 @@ figure_rev_order = data %>%
   distinct(iter, rev_ordered, n, past_to_best, past_to_worst) %>%
   group_by(iter, rev_ordered, n) %>%
   mutate(row = rank(past_to_worst)) %>%
-  filter(rev_ordered == "true") %>%
+  filter(rev_ordered == "rev_ordered") %>%
   filter(past_to_best > 0.001) %>%
   ggplot() +
   geom_col(aes(x=row,y=past_to_best),fill='blue') + 
@@ -83,31 +85,21 @@ png(file="../figures/nested_revenue_ordered.png",
 grid.arrange(figure_rev_order)
 dev.off()
 
-################################################
-# Figure XXX in Section XXX
-################################################
-
-data = read.csv("../data/nested_R1_variety.csv") 
-data = data %>%
-  mutate(improvement_over_best_past_assortment_best_case = best_case_revenue / max_previous_assortment,
-         improvement_over_best_past_assortment_worst_case = worst_case_revenue / max_previous_assortment,
-         past_to_worst = (worst_case_revenue - max_previous_assortment) / max_previous_assortment,
-         past_to_best = (best_case_revenue - max_previous_assortment) / max_previous_assortment,
-  )
 figure_variety = data %>%
-  select(iter,n, past_to_best, past_to_worst) %>%
+  select(iter, rev_ordered,n, past_to_best, past_to_worst) %>%
   mutate(past_to_best=round(past_to_best,3),
          past_to_worst=round(past_to_worst,3)) %>%
-  distinct(iter, n, past_to_best, past_to_worst) %>%
-  filter(past_to_best > 0.001) %>%
-  group_by(iter, n) %>%
+  distinct(iter, rev_ordered, n, past_to_best, past_to_worst) %>%
+  group_by(iter, rev_ordered, n) %>%
   mutate(row = rank(past_to_worst)) %>%
+  filter(rev_ordered == "other") %>%
+  filter(past_to_best > 0.001) %>%
   ggplot() +
   geom_col(aes(x=row,y=past_to_best),fill='blue') + 
-  geom_col(aes(x=row,y=past_to_worst),fill='red') +
+  geom_col(aes(x=row,y=past_to_worst,fill='red')) +
   theme_bw(base_size = 12, base_family = "Helvetica") + 
   scale_y_continuous(labels = function(x) paste0(x*100, "%"),
-                     breaks = seq(-6,12,1)/5) +
+                     breaks = seq(-6,12,1)/10) +
   theme( legend.position="none",
          axis.title.y=element_blank(),
          axis.title.x=element_blank(),
@@ -119,11 +111,9 @@ figure_variety = data %>%
   facet_grid(. ~ iter, scales = "free_x") 
 
 png(file="../figures/nested_variety.png",
-    width = 10, height = 2, units = 'in', res = 800)
+    width = 10, height = 2, units = 'in', res = 1000)
 grid.arrange(figure_variety)
 dev.off()
-
-
 
 
 

@@ -8,7 +8,7 @@ library(ggfittext)
 
 
 
-data = read.csv("../data/best_case_nested_R2.csv")
+data = read.csv("../data/appendix_A4.csv")
 
 
 # Figure EC.6 in Appendix EC.4

@@ -12,7 +12,7 @@ library(ggh4x)
 ##################################################
 
 
-data = read.csv("../data/conjoint_R2.csv")
+data = read.csv("../data/appendix_A6.csv")
 
 
 data = data %>%
@@ -52,28 +52,3 @@ grid.arrange(plot_conjoint)
 dev.off()
 
 
-data = read.csv("../data/conjoint_R2.csv")
-
-
-data = data %>%
-  mutate(past_to_worst = (worst_case_pareto - max_previous_assortment) / max_previous_assortment,
-         past_to_best = (best_case_pareto - max_previous_assortment) / max_previous_assortment,
-         past_to_optimal = (optimal_obj_val - max_previous_assortment) / max_previous_assortment)
-
-plot_conjoint_time = 
-  data %>%
-  select(iter,n, M,time_robust) %>%
-  distinct() %>% 
-  mutate(M = as.factor(M)) %>%
-  #group_by(n,M) %>%
-  #summarize(avg_time_robust = mean(time_robust), std_time_robust = sd(time_robust)) %>%
-  ggplot() +
-  geom_boxplot(aes(x=M,group=M,y=time_robust)) + 
-  theme_bw(base_size = 12, base_family = "Helvetica") +
-  ylab("Computation Time (Seconds)") +
-  xlab(TeX("Number of Past Assortments ($M$)"))
-
-png(file="../figures/conjoint_plot_time.png",
-    width = 7, height = 5, units = 'in', res = 300)
-grid.arrange(plot_conjoint_time)
-dev.off()
